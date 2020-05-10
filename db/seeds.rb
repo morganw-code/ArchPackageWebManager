@@ -1,7 +1,40 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+response = HTTParty.get("https://www.archlinux.org/packages/search/json/?q=pacman")
+response_json = JSON.parse(response.body)
+LIMIT = 10
+for i in LIMIT.times do
+    pkgname = response_json["results"][i]["pkgname"]
+    pkgbase = response_json["results"][i]["pkgbase"]
+    repo = response_json["results"][i]["repo"]
+    arch = response_json["results"][i]["arch"]
+    pkgver = response_json["results"][i]["pkgver"]
+    pkgrel = response_json["results"][i]["pkgrel"]
+    epoch = response_json["results"][i]["epoch"]
+    pkgdesc = response_json["results"][i]["pkgdesc"]
+    url = response_json["results"][i]["url"]
+    filename = response_json["results"][i]["filename"]
+    compressed_size = response_json["results"][i]["compressed_size"]
+    installed_size = response_json["results"][i]["installed_size"]
+    build_date = response_json["results"][i]["build_date"]
+    last_update = response_json["results"][i]["last_update"]
+    flag_date = response_json["results"][i]["flag_date"]
+    packager = response_json["results"][i]["packager"]
+
+    Repo.create(
+        :pkgname => pkgname,
+        :pkgbase =>pkgbase,
+        :repo => repo,
+        :arch => arch,
+        :pkgver => pkgver,
+        :pkgrel => pkgrel,
+        :epoch => epoch,
+        :pkgdesc => pkgdesc,
+        :url => url,
+        :filename => filename,
+        :compressed_size => compressed_size,
+        :installed_size => installed_size,
+        :build_date => build_date,
+        :last_update => last_update,
+        :flag_date => flag_date,
+        :packager => packager
+    )
+end
