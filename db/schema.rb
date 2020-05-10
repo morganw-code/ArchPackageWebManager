@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_121701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "repos", force: :cascade do |t|
+  create_table "packages", force: :cascade do |t|
     t.string "pkgname"
     t.string "pkgbase"
     t.string "repo"

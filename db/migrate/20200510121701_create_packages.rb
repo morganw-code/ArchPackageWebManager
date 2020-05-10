@@ -1,6 +1,6 @@
-class CreateRepos < ActiveRecord::Migration[5.2]
+class CreatePackages < ActiveRecord::Migration[5.2]
   def change
-    create_table :repos do |t|
+    create_table :packages do |t|
       t.string :pkgname
       t.string :pkgbase
       t.string :repo

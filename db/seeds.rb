@@ -19,7 +19,7 @@ for i in LIMIT.times do
     flag_date = response_json["results"][i]["flag_date"]
     packager = response_json["results"][i]["packager"]
 
-    Repo.create(
+    Package.create(
         :pkgname => pkgname,
         :pkgbase =>pkgbase,
         :repo => repo,
