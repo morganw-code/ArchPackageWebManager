@@ -1,6 +1,6 @@
-response = HTTParty.get("https://www.archlinux.org/packages/search/json/?q=pacman")
+response = HTTParty.get("https://www.archlinux.org/packages/search/json/?q=nvidia")
 response_json = JSON.parse(response.body)
-LIMIT = 10
+LIMIT = response_json["results"].count()
 for i in LIMIT.times do
     pkgname = response_json["results"][i]["pkgname"]
     pkgbase = response_json["results"][i]["pkgbase"]

@@ -1,9 +1,17 @@
-<% for package in @packages %>
-<div class="package">
-    <ul>
-        <li>
-            <%= package.pkgname %>
-        </li>
-    </ul>
+<div class="grid">
+    <div class="col col1">
+        <% for package in @packages %>
+            <div class="package">
+                <div class="package-header">
+                    <span><%= package.pkgname %></span>
+                </div>
+                <div class="package-body">
+                    <p><%= package.pkgdesc %></p>
+                </div>
+                <div class="package-footer">
+                    <span><%= link_to("Repository", package.url, :class => "repo-btn", :target => "_blank") %></span>
+                </div>
+            </div>
+        <% end %>
+    </div>
 </div>
-<% end %>

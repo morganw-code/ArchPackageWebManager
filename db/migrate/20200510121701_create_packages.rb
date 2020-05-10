@@ -11,13 +11,12 @@ class CreatePackages < ActiveRecord::Migration[5.2]
       t.text :pkgdesc
       t.string :url
       t.string :filename
-      t.integer :compressed_size
-      t.integer :installed_size
+      t.decimal :compressed_size
+      t.decimal :installed_size
       t.date :build_date
       t.date :last_update
       t.date :flag_date
       t.string :packager
-
       t.timestamps
     end
   end
