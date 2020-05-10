@@ -1,6 +1,29 @@
+Package.destroy_all()
+Repo.destroy_all()
+
+# Repo
+repos = ["community", "multilib"]
+for repo in repos do
+    Repo.create(
+        :title => repo
+    )
+end
+
+# Packages
+
+def find_repo(title)
+    @repo = Repo.find_by_title(title)
+    if @repo == nil
+        return nil
+    else
+        return @repo.id
+    end
+end
+
 response = HTTParty.get("https://www.archlinux.org/packages/search/json/?q=nvidia")
 response_json = JSON.parse(response.body)
 LIMIT = response_json["results"].count()
+@repo = nil
 for i in LIMIT.times do
     pkgname = response_json["results"][i]["pkgname"]
     pkgbase = response_json["results"][i]["pkgbase"]
@@ -18,11 +41,10 @@ for i in LIMIT.times do
     last_update = response_json["results"][i]["last_update"]
     flag_date = response_json["results"][i]["flag_date"]
     packager = response_json["results"][i]["packager"]
-
     Package.create(
         :pkgname => pkgname,
         :pkgbase =>pkgbase,
-        :repo => repo,
+        :repo_id => find_repo(repo),
         :arch => arch,
         :pkgver => pkgver,
         :pkgrel => pkgrel,

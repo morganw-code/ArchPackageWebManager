@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_121701) do
+ActiveRecord::Schema.define(version: 2020_05_10_141928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2020_05_10_121701) do
   create_table "packages", force: :cascade do |t|
     t.string "pkgname"
     t.string "pkgbase"
-    t.string "repo"
     t.string "arch"
     t.integer "pkgver"
     t.integer "pkgrel"
@@ -34,6 +33,15 @@ ActiveRecord::Schema.define(version: 2020_05_10_121701) do
     t.string "packager"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "repo_id"
+    t.index ["repo_id"], name: "index_packages_on_repo_id"
   end
 
+  create_table "repos", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "packages", "repos"
 end

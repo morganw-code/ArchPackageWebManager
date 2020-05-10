@@ -3,7 +3,6 @@ class CreatePackages < ActiveRecord::Migration[5.2]
     create_table :packages do |t|
       t.string :pkgname
       t.string :pkgbase
-      t.string :repo
       t.string :arch
       t.integer :pkgver
       t.integer :pkgrel
